@@ -10,6 +10,6 @@ src="handwash.gif" alt="lavado de manos">
 
 <style>
  img {
-     max-width: 100%;
+   width: 100%;
  }
 </style>
