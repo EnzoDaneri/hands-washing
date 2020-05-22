@@ -1,0 +1,18 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../App.svelte",
+    "../../HowTo.svelte",
+    "../../ProgressBar.svelte",
+    "../../Timer.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n import Timer from './Timer.svelte'\n import HowTo from './HowTo.svelte'\n let audio;\n function timerEnds(e) {\n     audio.play();\n }\n\n</script>\n\n\n<h1>Handwashing App</h1>\n<Timer on:end={timerEnds}/> \n\n<HowTo/>\n\n<h3>\n<a href=\"https://www.who.int/gpsc/media/how_to_handwash_lge.gif\">Fuente de imágen</a>\n<a href=\"https://freesound.org/people/metrostock99/sounds/345086/#\">Fuente del sonido</a>\n</h3>\n\n<audio bind:this={audio}\nsrc=\"sound.wav\"></audio>\n\n\n<style>\n h1, h3 {\n     text-align: center;\n }\n\n</style>",
+    "\n\n<div bp=\"grid\">\n\n<img \nbp=\"offset-5@md 4@md 12@sm\"\nsrc=\"handwash.gif\" alt=\"lavado de manos\">\n\n</div>\n\n<style>\n img {\n   width: 100%;\n }\n</style>",
+    "<script>\nexport let progress = 0;\n\n</script>\n\n\n\n<div bp=\"grid\">\n <div bp=\"offset-5@md 4@md 12@sm\"\n class=\"progress-container\">\n <div class=\"progress-bar\" style=\"width: {progress}%;\">\n <div class=\"sr-only\">%{progress}</div>\n \n </div>\n </div>\n</div>\n\n\n<style>\n.progress-container {\n    margin: 20px 0;\n    border: 1px solid rgb(194, 194, 194);\n}\n\n.progress-bar {\n    height: 30px;\n    background-color: rgb(77, 199, 55);\n}\n\n</style>",
+    "<script>\nimport ProgressBar from './ProgressBar.svelte'\nimport { createEventDispatcher} from 'svelte'\nconst totalSeconds = 20;\nlet secondLeft = totalSeconds;\nlet isRunning = false;\n$: progress = ( (totalSeconds - secondLeft) / totalSeconds) * 100;\nconst dispatch = createEventDispatcher();\nfunction startTimer() {\n isRunning = true;   \n const timer = setInterval(() => {\n  secondLeft -= 1;\n\nif (secondLeft == 0) {\n    clearInterval(timer);\n    isRunning = false;\n    secondLeft = totalSeconds\n    dispatch('end', 'end timer')\n}\n}, 1000);\n}\n\n\n</script>\n\n<div bp=\"grid\">\n<h2 bp=\"offset-5@md 4@md 12@sm\"\nsrc=\"handwash.gif\" alt=\"lavado de manos\">Seconds Left:{secondLeft}</h2>\n</div>\n<ProgressBar progress={progress}/>\n\n<div bp=\"grid\">\n<button disabled={isRunning} on:click={startTimer} class=\"start\" bp=\"offset-5@md 4@md 12@sm\"\n>Start</button>\n\n</div>\n\n<style>\nh2 {\n    margin: 0;\n}\n.start {\n    background-color: rgb(154, 73, 73);\n    width: 100%;\n    margin: 10px 0;\n    height: 50px;\n\n}\n\n.start[disabled] {\n    background-color:  rgb(194, 194, 194);\n    cursor: not-allowed;\n}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AA0BC,gBAAE,CAAE,EAAE,cAAC,CAAC,AACJ,UAAU,CAAE,MAAM,AACtB,CAAC;ACjBD,GAAG,cAAC,CAAC,AACH,KAAK,CAAE,IAAI,AACb,CAAC;ACMF,mBAAmB,eAAC,CAAC,AACjB,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,IAAI,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,AACxC,CAAC,AAED,aAAa,eAAC,CAAC,AACX,MAAM,CAAE,IAAI,CACZ,gBAAgB,CAAE,IAAI,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC,EAAE,CAAC,AACtC,CAAC;ACWD,EAAE,cAAC,CAAC,AACA,MAAM,CAAE,CAAC,AACb,CAAC,AACD,MAAM,cAAC,CAAC,AACJ,gBAAgB,CAAE,IAAI,GAAG,CAAC,CAAC,EAAE,CAAC,CAAC,EAAE,CAAC,CAClC,KAAK,CAAE,IAAI,CACX,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,IAAI,AAEhB,CAAC,AAED,MAAM,CAAC,QAAQ,CAAC,cAAC,CAAC,AACd,gBAAgB,CAAG,IAAI,GAAG,CAAC,CAAC,GAAG,CAAC,CAAC,GAAG,CAAC,CACrC,MAAM,CAAE,WAAW,AACvB,CAAC"
+}
